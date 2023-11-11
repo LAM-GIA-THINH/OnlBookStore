@@ -6,7 +6,8 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\AuthController;
+
 
 
 /*
@@ -43,9 +44,20 @@ Route::middleware(['auth'])->group (function(){
     Route::get('/user/dashboard', \App\Http\Livewire\User\UserDashBoardComponent::class)->name('user.dashboard');
 });
 
-Route::controller(FacebookController::class)->group(function(){
-    Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
-    Route::get('auth/facebook/callback', 'handleFacebookCallback');
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+    Route::get('facebook/callback', [AuthController::class, 'handleFacebookCallback']);
+    
+    Route::get('google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
+});
+
+Route::group(['middleware' => 'userLogin'], function() {
+    Route::group(['middleware' => 'authAdmin'], function () {
+        //admin
+    });
+
+    //user
 });
 
 // Route::middleware('auth')->group(function () {
