@@ -47,7 +47,10 @@ Route::controller(FacebookController::class)->group(function(){
     Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
     Route::get('auth/facebook/callback', 'handleFacebookCallback');
 });
-
+Route::get('/',HomeComponent::class)-> name('home.index');
+Route::get('/shop',ShopComponent::class)-> name('shop');
+Route::get('/cart',CartComponent::class)-> name('shop.cart');
+Route::get('/checkout',CheckoutComponent::class)-> name('shop.checkout');
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
