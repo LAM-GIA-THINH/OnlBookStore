@@ -36,13 +36,13 @@ Route::get('/checkout',\App\Http\Livewire\CheckoutComponent::class)->name('shop.
 
 
 
-Route::middleware(['auth','authadmin'])->group (function(){
-    Route::get('/admin/dashboard', \App\Http\Livewire\Admin\AdminDashBoardComponent::class)->name('admin.dashboard');
-});
+// Route::middleware(['auth','authadmin'])->group (function(){
+//     Route::get('/admin/dashboard', \App\Http\Livewire\Admin\AdminDashBoardComponent::class)->name('admin.dashboard');
+// });
 
-Route::middleware(['auth'])->group (function(){
-    Route::get('/user/dashboard', \App\Http\Livewire\User\UserDashBoardComponent::class)->name('user.dashboard');
-});
+// Route::middleware(['auth'])->group (function(){
+//     Route::get('/user/dashboard', \App\Http\Livewire\User\UserDashBoardComponent::class)->name('user.dashboard');
+// });
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('facebook', [AuthController::class, 'redirectToFacebook'])->name('auth.facebook');
@@ -52,12 +52,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('google/callback', [AuthController::class, 'handleGoogleCallback']);
 });
 
-Route::group(['middleware' => 'userLogin'], function() {
+Route::group(['middleware' => ['userLogin', 'verified']], function() {
     Route::group(['middleware' => 'authAdmin'], function () {
         //admin
+        Route::get('/admin/dashboard', \App\Http\Livewire\Admin\AdminDashBoardComponent::class)->name('admin.dashboard');
     });
-
     //user
+    Route::get('/user/dashboard', \App\Http\Livewire\User\UserDashBoardComponent::class)->name('user.dashboard');
 });
 
 // Route::middleware('auth')->group(function () {
