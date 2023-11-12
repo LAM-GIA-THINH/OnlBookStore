@@ -392,7 +392,7 @@
                                     <li><a href="contact.html">Contact</a></li>
                                     @auth
                                         <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
-                                        @if(Auth::user()->utype == 'ADM')
+                                        @if(Auth::user()->type == 'ADM')
                                         <ul class="sub-menu">
                                             <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                                             <li><a href="#">Products</a></li>
