@@ -6,7 +6,9 @@ use App\Http\Livewire\CheckoutComponent;
 use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\DetailsComponent;
 use App\Http\Controllers\FacebookController;
+
 
 
 /*
@@ -47,6 +49,11 @@ Route::controller(FacebookController::class)->group(function(){
     Route::get('auth/facebook', 'redirectToFacebook')->name('auth.facebook');
     Route::get('auth/facebook/callback', 'handleFacebookCallback');
 });
+Route::get('/',HomeComponent::class)-> name('home.index');
+Route::get('/shop',ShopComponent::class)-> name('shop');
+Route::get('/cart',CartComponent::class)-> name('shop.cart');
+Route::get('/checkout',CheckoutComponent::class)-> name('shop.checkout');
+Route::get('/product{slug}',DetailsComponent::class)-> name('product.details');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
