@@ -7,6 +7,7 @@ use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\ShopComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Livewire\DetailsComponent;
 
 
 
@@ -60,6 +61,11 @@ Route::group(['middleware' => ['userLogin', 'verified']], function() {
     //user
     Route::get('/user/dashboard', \App\Http\Livewire\User\UserDashBoardComponent::class)->name('user.dashboard');
 });
+Route::get('/',HomeComponent::class)-> name('home.index');
+Route::get('/shop',ShopComponent::class)-> name('shop');
+Route::get('/cart',CartComponent::class)-> name('shop.cart');
+Route::get('/checkout',CheckoutComponent::class)-> name('shop.checkout');
+Route::get('/product{slug}',DetailsComponent::class)-> name('product.details');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
